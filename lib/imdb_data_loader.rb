@@ -10,7 +10,6 @@ class ImdbDataLoader
           movie.title  = m["title"]
           movie.year   = m["year"].to_i
           movie.rating = m["rating"].to_f
-          movie.meta   = m
 
           movie.directors = find_or_create_persons(m["directors"], :director)
           movie.writers   = find_or_create_persons(m["writers"], :writer)

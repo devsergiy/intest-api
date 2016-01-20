@@ -3,14 +3,11 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
 
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      render json: user, status: :ok
+      user.token = SecureRandom.hex
+      user.save!
+      render json: { access_token: user.token, token_type: 'bearer' }
     else
-      render json: ["Invalid email or password"], status: :unauthorized
+      render json: { error: "Invalid email or password" }, status: :unauthorized
     end
-  end
-
-  def destroy
-    session[:user_id] = nil
   end
 end
