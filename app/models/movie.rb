@@ -7,5 +7,5 @@ class Movie < ActiveRecord::Base
     has_many :actors,    -> { where person_movies: {person_role: :actor} }
   end
 
-  validates :idimdb, scope: :user_id
+  validates :idimdb, uniqueness: { scope: :user_id }
 end
