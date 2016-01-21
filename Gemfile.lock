@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/rails-api/active_model_serializers.git
-  revision: 0587d08a1cd95b127c0915894fb1072870c36859
-  tag: v0.10.0.rc3
+  revision: 8981683b9fa8d0bcff0e76b3702d699689b787b4
+  ref: 8981683
   specs:
     active_model_serializers (0.10.0.rc3)
       actionpack (>= 4.0)
@@ -112,7 +112,7 @@ GEM
     mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
-    nokogiri (1.6.7.1)
+    nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
     pry (0.10.3)

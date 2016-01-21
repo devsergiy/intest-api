@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', github: 'rails/rails', ref: 'f823431'
-gem 'active_model_serializers', github: 'rails-api/active_model_serializers', tag: 'v0.10.0.rc3'
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers', ref: '8981683'
 
 gem 'pg'
 
