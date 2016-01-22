@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
+gem 'rails_12factor', group: :production
+
 gem 'rails', github: 'rails/rails', ref: 'f823431'
 gem 'active_model_serializers', github: 'rails-api/active_model_serializers', ref: '8981683'
 
