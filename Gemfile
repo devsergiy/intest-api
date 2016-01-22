@@ -10,6 +10,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'rack-cors'
 
+gem 'imdb'
+
 group :development, :test do
   gem 'pry-byebug'
 end
