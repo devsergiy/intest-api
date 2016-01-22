@@ -1,3 +1,3 @@
 class Movie < ActiveRecord::Base
-  validates :idimdb, uniqueness: { scope: :user_id }
+  scope :for_user, -> (user) { where(user_id: [nil, user]) }
 end

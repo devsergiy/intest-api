@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120211020) do
+ActiveRecord::Schema.define(version: 20160122003235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,26 +25,10 @@ ActiveRecord::Schema.define(version: 20160120211020) do
     t.datetime "updated_at",  null: false
     t.float    "user_rating"
     t.integer  "user_id"
+    t.string   "director",                 array: true
+    t.string   "actors",                   array: true
     t.index ["idimdb"], name: "index_movies_on_idimdb", using: :btree
     t.index ["user_id"], name: "index_movies_on_user_id", using: :btree
-  end
-
-  create_table "people", force: :cascade do |t|
-    t.string   "name"
-    t.string   "nameid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["nameid"], name: "index_people_on_nameid", using: :btree
-  end
-
-  create_table "person_movies", force: :cascade do |t|
-    t.integer  "movie_id"
-    t.integer  "person_id"
-    t.integer  "person_role"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["movie_id"], name: "index_person_movies_on_movie_id", using: :btree
-    t.index ["person_id"], name: "index_person_movies_on_person_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,6 +41,4 @@ ActiveRecord::Schema.define(version: 20160120211020) do
     t.string   "token"
   end
 
-  add_foreign_key "person_movies", "movies"
-  add_foreign_key "person_movies", "people"
 end

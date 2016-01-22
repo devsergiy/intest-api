@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
 
   # GET /movies
   def index
-    @movies = Movie.all.includes(:directors)
+    @movies = Movie.for_user(current_user)
 
     render json: @movies
   end
@@ -19,9 +19,9 @@ class MoviesController < ApplicationController
     @movie = Movie.new(movie_params)
 
     if @movie.save
-      render json: @movie, status: :created, location: @movie
+      render json: @movie, status: :created
     else
-      render json: @movie.errors, status: :unprocessable_entity
+      render json: ErrorsSerializer.serialize(@movie.errors), status: :unprocessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class MoviesController < ApplicationController
     if @movie.update(movie_params)
       render json: @movie
     else
-      render json: @movie.errors, status: :unprocessable_entity
+      render json: ErrorsSerializer.serialize(@movie.errors), status: :unprocessable_entity
     end
   end
 
@@ -47,6 +47,21 @@ class MoviesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def movie_params
-      params.require(:movie).permit(:title, :year, :rating, :idimdb, :meta)
+      p =
+        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [
+          :title, :year, :rating, :'user-rating', :actors, :director
+        ]).tap do |params|
+          params[:actors]   = split_array(params[:actors])
+          params[:director] = split_array(params[:director])
+        end
+      UnderscoreParams.process(p)
+    end
+
+    def split_array(param)
+      if param.blank?
+        []
+      else
+        param.split(",")
+      end
     end
 end
