@@ -1,3 +1,6 @@
+require 'errors_serializer'
+require 'underscore_params'
+
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update]
 

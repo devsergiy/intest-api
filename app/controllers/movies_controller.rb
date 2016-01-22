@@ -1,3 +1,6 @@
+require 'errors_serializer'
+require 'underscore_params'
+
 class MoviesController < ApplicationController
   before_action :authenticate
   before_action :set_movie, only: [:show, :update, :destroy]
