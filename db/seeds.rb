@@ -8,4 +8,4 @@
 
 require "imdb_data_loader"
 
-ImdbDataLoader.new("db/fixtures/top250.json").load
+ImdbDataLoader.new.load

@@ -1,15 +1,19 @@
-class ImdbDataLoader
-  def initialize(file_name)
-    @json = JSON.parse(File.read(file_name))
-  end
+require 'imdb'
 
+class ImdbDataLoader
   def load
-    ActiveRecord::Base.transaction do
-      @json["data"]["movies"].each do |m|
-        Movie.find_or_create_by(idimdb: m["idIMDB"]) do |movie|
-          movie.title  = m["title"]
-          movie.year   = m["year"].to_i
-          movie.rating = m["rating"].to_f
+    movies = Imdb::Top250.new.movies
+
+    movies.each_slice(50) do |slice|
+      ActiveRecord::Base.transaction do
+        slice.each do |m|
+          Movie.find_or_create_by(idimdb: m.id) do |movie|
+            movie.title  = m.title
+            movie.year   = m.year
+            movie.rating = m.rating
+            movie.actors =  m.cast_members
+            movie.director = m.director
+          end
         end
       end
     end
